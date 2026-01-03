@@ -1,0 +1,22 @@
+image: "git-docker.mst.edu/os/container"
+
+variables:
+  IS_PIPELINE: "1"
+
+stages:
+  - test
+
+generaltester:
+  stage: test
+  script:
+    - echo "=== Assignment 1: Linked Lists (C++) ==="
+    - make clean
+    - make test --keep-going || true
+    - make summary
+    - make grade
+  timeout: 2 hours 30 minutes
+  artifacts:
+    when: always
+    paths:
+      - grade
+    expire_in: 1 month
